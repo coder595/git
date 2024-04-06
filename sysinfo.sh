@@ -21,7 +21,7 @@ $raminfo
 	"
 
 echo "
-	$date
+	+++  $date +++
 	"
 
 
