@@ -5,12 +5,13 @@ static const unsigned int borderpx  = 5;        /* border pixel of windows */
 static const unsigned int snap      = 64;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
-static const char *fonts[]          = { "fontawesome:size=14", "monospace:size=10" };
-static const char dmenufont[]       = "fontawesome:size=14";
+static const char *fonts[]          = { "FontAwesome:size=14", "monospace:size=14" };
+//static const char *fonts[] = { "monospace:size=10", "FontAwesome:size=14" };
+static const char dmenufont[]       = "monospace:size=14";
 static const char col_1[]       = "black";
 static const char col_2[]       = "pink";
 static const char col_3[]       = "lightgreen";
-static const char col_4[]       = "antiquewhite";
+static const char col_4[]       = "yellow";
 static const char col_5[]       = "darkred";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
@@ -26,7 +27,7 @@ static const char col_6[]       = "red";
 static const char col_7[]       = "lightblue";
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "" };
+static const char *tags[] = { "", "2", "3", "4", "5", "6" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -46,7 +47,7 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
+	{ "",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 };
@@ -67,11 +68,17 @@ static const char *rofi[] = {"rofi", "-show", "run"};
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_1, "-nf", col_3, "-sb", col_6, "-sf", col_2, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
+static const char *firefoxcmd[]  = { "firefox-esr", NULL };
+static const char *slockcmd[]    = { "slock", NULL };
+static const char *chatgptcmd[]  = { "thorium-browser", "--app=https://chat.openai.com", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
         { MODKEY,                       XK_r,      spawn,          {.v = rofi } },
+	{ MODKEY,                       XK_q,      spawn,          {.v = firefoxcmd } },
+	{ MODKEY, 			XK_l,      spawn, 	   {.v = slockcmd } },
+	{ MODKEY, 			XK_g, 	   spawn, 	   {.v = chatgptcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{0,                             XK_Print,  spawn,	   {.v = screenshot } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -101,9 +108,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_4,                      3)
 	TAGKEYS(                        XK_5,                      4)
 	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
