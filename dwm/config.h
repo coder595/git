@@ -20,7 +20,7 @@ static const char *colors[][3]      = {
 };
 
 /*screenshot */
-static const char *screenshot[] = {"scrot", "/home/muhammad/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png",NULL};
+static const char *screenshot[] = {"scrot", "$HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png",NULL};
 
 /*Some extra colors*/
 static const char col_6[]       = "red";
@@ -70,7 +70,11 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *firefoxcmd[]  = { "firefox-esr", NULL };
 static const char *slockcmd[]    = { "slock", NULL };
-static const char *chatgptcmd[]  = { "thorium-browser", "--app=https://chat.openai.com", NULL };
+static const char *chatgptcmd[]  = { "thorium-browser", "--profile-directory=Profile 3",  "--app=https://chat.openai.com", NULL };
+static const char *whatsapp[]  = { "thorium-browser", "--profile-directory=Profile 3", "--app=https://web.whatsapp.com", NULL };
+static const char *filemanager[]  = { "pcmanfm", NULL };
+//static const char *example[]  = { "chromium", "--profile-directory=Profile 1", "--app=https://google.com", NULL };
+
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -79,9 +83,11 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_q,      spawn,          {.v = firefoxcmd } },
 	{ MODKEY, 			XK_l,      spawn, 	   {.v = slockcmd } },
 	{ MODKEY, 			XK_g, 	   spawn, 	   {.v = chatgptcmd } },
+	{ MODKEY, 			XK_w, 	   spawn, 	   {.v = whatsapp } },
+	{ MODKEY, 			XK_e, 	   spawn, 	   {.v = filemanager } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{0,                             XK_Print,  spawn,	   {.v = screenshot } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
+  	{ MODKEY,                       XK_p,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
