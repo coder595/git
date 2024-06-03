@@ -1,30 +1,38 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 5;        /* border pixel of windows */
-static const unsigned int snap      = 64;       /* snap pixel */
-static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 0;        /* 0 means bottom bar */
+static unsigned int borderpx  = 1;        /* border pixel of windows */
+static unsigned int snap      = 32;       /* snap pixel */
+static int showbar            = 1;        /* 0 means no bar */
+static int topbar             = 0;        /* 0 means bottom bar */
+
+static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static const unsigned int systrayonleft = 0;    /* 0: systray in the right corner, >0: systray on left of status text */
+static const unsigned int systrayspacing = 2;   /* systray spacing */
+static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static const int showsystray        = 1;        /* 0 means no systray */
+
 static const char *fonts[]          = { "FontAwesome:size=14", "monospace:size=14" };
 //static const char *fonts[] = { "monospace:size=10", "FontAwesome:size=14" };
 static const char dmenufont[]       = "monospace:size=14";
-static const char col_1[]       = "black";
-static const char col_2[]       = "pink";
-static const char col_3[]       = "lightgreen";
-static const char col_4[]       = "yellow";
-static const char col_5[]       = "darkred";
-static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_3, col_1, col_2 },
-	[SchemeSel]  = { col_4, col_5,  col_2  },
+
+static char normbgcolor[]           = "black";
+static char normbordercolor[]       = "blue";
+static char normfgcolor[]           = "lightgreen";
+static char selfgcolor[]            = "white";
+static char selbordercolor[]        = "yellow";
+static char selbgcolor[]            = "red";
+static char *colors[][3] = {
+       /*               fg           bg           border   */
+       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
 };
 
-/*screenshot */
-static const char *screenshot[] = {"scrot", "$HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png",NULL};
+/* Extra Colors */
+static char extra_1[]            = "red";
 
-/*Some extra colors*/
-static const char col_6[]       = "red";
-static const char col_7[]       = "lightblue";
+/*screenshot */
+static const char *screenshot[] = {"scrot", "/home/muhammad/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png",NULL};
 
 /* tagging */
 static const char *tags[] = { "", "2", "3", "4", "5", "6" };
@@ -40,20 +48,21 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static int nmaster     = 0;    /* number of clients in master area */
+static int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "",      tile },    /* first entry is default */
+	{ "",        tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 };
 
 /* key definitions */
 #define MODKEY Mod4Mask
+#define ALTKEY Mod1Mask  // Alt key
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -64,28 +73,60 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/bash", "-c", cmd, NULL } }
 
 /* commands */
-static const char *rofi[] = {"rofi", "-show", "run"};
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_1, "-nf", col_3, "-sb", col_6, "-sf", col_2, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", extra_1, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
+/* Extra Commands */
 static const char *firefoxcmd[]  = { "firefox-esr", NULL };
 static const char *slockcmd[]    = { "slock", NULL };
 static const char *chatgptcmd[]  = { "thorium-browser", "--profile-directory=Profile 3",  "--app=https://chat.openai.com", NULL };
 static const char *whatsapp[]  = { "thorium-browser", "--profile-directory=Profile 3", "--app=https://web.whatsapp.com", NULL };
 static const char *filemanager[]  = { "pcmanfm", NULL };
-//static const char *example[]  = { "chromium", "--profile-directory=Profile 1", "--app=https://google.com", NULL };
+static const char *my_github[]  = { "brave-browser-nightly", "--app=https://github.com/", NULL };
+static const char *discordcmd[]  = { "brave-browser-nightly", "--app=https://discord.com/channels/@me", NULL };
+//static const char *discordcmd[]  = { "flatpak", "run", "com.discordapp.Discord", NULL };
+/* volume controls */
+static const char *upvol[]   = { "amixer", "-q", "sset", "Master", "5%+", NULL };
+static const char *downvol[] = { "amixer", "-q", "sset", "Master", "5%-", NULL };
+static const char *mutevol[] = { "amixer", "-q", "sset", "Master", "toggle", NULL };
+static const char *unmutevol[] = { "amixer", "-q", "sset", "Master", "unmute", NULL };
 
+/*
+ * Xresources preferences to load at startup
+ */
+ResourcePref resources[] = {
+		{ "normbgcolor",        STRING,  &normbgcolor },
+		{ "normbordercolor",    STRING,  &normbordercolor },
+		{ "normfgcolor",        STRING,  &normfgcolor },
+		{ "selbgcolor",         STRING,  &selbgcolor },
+		{ "selbordercolor",     STRING,  &selbordercolor },
+		{ "selfgcolor",         STRING,  &selfgcolor },
+		{ "borderpx",          	INTEGER, &borderpx },
+		{ "snap",          	INTEGER, &snap },
+		{ "showbar",          	INTEGER, &showbar },
+		{ "topbar",          	INTEGER, &topbar },
+		{ "nmaster",          	INTEGER, &nmaster },
+		{ "resizehints",       	INTEGER, &resizehints },
+		{ "mfact",      	 	FLOAT,   &mfact },
+};
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
-        { MODKEY,                       XK_r,      spawn,          {.v = rofi } },
-	{ MODKEY,                       XK_q,      spawn,          {.v = firefoxcmd } },
+	/* Keybindings for Extra Commands/Apps ------------------------------------- */
+	{ MODKEY,                	XK_q,      spawn,          {.v = firefoxcmd } },
 	{ MODKEY, 			XK_l,      spawn, 	   {.v = slockcmd } },
 	{ MODKEY, 			XK_g, 	   spawn, 	   {.v = chatgptcmd } },
 	{ MODKEY, 			XK_w, 	   spawn, 	   {.v = whatsapp } },
 	{ MODKEY, 			XK_e, 	   spawn, 	   {.v = filemanager } },
+	{ MODKEY|ShiftMask, 		XK_g, 	   spawn, 	   {.v = my_github } },
+	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = discordcmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_F8,     spawn,          {.v = upvol   } },
+        { MODKEY,                       XK_F7,     spawn,          {.v = downvol } },
+        { MODKEY,                       XK_F5,     spawn,          {.v = mutevol } },
+	{ MODKEY,                       XK_F6,     spawn,          {.v = unmutevol } },
+	/* ------------------------------------------------------------------------- */
 	{0,                             XK_Print,  spawn,	   {.v = screenshot } },
   	{ MODKEY,                       XK_p,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
