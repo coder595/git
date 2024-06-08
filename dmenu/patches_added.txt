@@ -1,4 +1,6 @@
 patches added:
 date
 border
-high priority
+highlight
+highpriority
+dmenu center
