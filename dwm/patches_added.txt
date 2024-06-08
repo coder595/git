@@ -1,5 +1,6 @@
-The patches I added:
-systray
+patches added:
 active indicator
+full gaps
+restartsig (Super+Shift+r)
 winicon
-fullgaps
+systray

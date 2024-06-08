@@ -88,7 +88,7 @@ drw_resize(Drw *drw, unsigned int w, unsigned int h)
 	drw->w = w;
 	drw->h = h;
 	if (drw->picture)
-	XRenderFreePicture(drw->dpy, drw->picture);
+		XRenderFreePicture(drw->dpy, drw->picture);
 	if (drw->drawable)
 		XFreePixmap(drw->dpy, drw->drawable);
 	drw->drawable = XCreatePixmap(drw->dpy, drw->root, w, h, DefaultDepth(drw->dpy, drw->screen));
