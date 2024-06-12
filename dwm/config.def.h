@@ -71,23 +71,26 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] 	 = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, "-hp", "pcmanfm,firefox-esr,chromium,codium,freetube,floorp,syncthingtray,anydesk", NULL };
-static const char *termcmd[] 	 = { "alacritty", NULL };
-static const char *filemanager[] = { "pcmanfm", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, "-hp", "pcmanfm,firefox-esr,chromium,codium,freetube,floorp,syncthingtray,anydesk", NULL };
+static const char *termcmd[]  = { "alacritty", NULL };
 /* Extra Commands */
 static const char *firefoxcmd[]  = { "firefox-esr", NULL };
 static const char *slockcmd[]    = { "slock", NULL };
 static const char *chatgptcmd[]  = { "thorium-browser", "--profile-directory=Profile 3",  "--app=https://chat.openai.com", NULL };
-static const char *whatsapp[]  	 = { "thorium-browser", "--profile-directory=Profile 3", "--app=https://web.whatsapp.com", NULL };
-static const char *my_github[]   = { "brave-browser-nightly", "--app=https://github.com/", NULL };
+static const char *whatsapp[]  = { "thorium-browser", "--profile-directory=Profile 3", "--app=https://web.whatsapp.com", NULL };
+static const char *bankmuscat[]  = { "chromium", "--profile-directory=Profile 15", "--app=https://corp.bankmuscatonline.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&__START_TRAN_FLAG__=Y&FG_BUTTONS__=LOAD&ACTION.LOAD=Y&AuthenticationFG.LOGIN_FLAG=7&BANK_ID=BM", NULL };
+static const char *filemanager[]  = { "pcmanfm", NULL };
+static const char *my_github[]  = { "brave-browser-nightly", "--app=https://github.com/", NULL };
 static const char *discordcmd[]  = { "brave-browser-nightly", "--app=https://discord.com/channels/@me", NULL };
 //static const char *discordcmd[]  = { "flatpak", "run", "com.discordapp.Discord", NULL };
 /* volume controls */
-static const char *upvol[]  	 = { "amixer", "-q", "sset", "Master", "5%+", NULL };
-static const char *downvol[]	 = { "amixer", "-q", "sset", "Master", "5%-", NULL };
-static const char *mutevol[]	 = { "amixer", "-q", "sset", "Master", "toggle", NULL };
-static const char *unmutevol[]	 = { "amixer", "-q", "sset", "Master", "unmute", NULL };
-
+static const char *upvol[]   = { "amixer", "-q", "sset", "Master", "5%+", NULL };
+static const char *downvol[] = { "amixer", "-q", "sset", "Master", "5%-", NULL };
+static const char *mutevol[] = { "amixer", "-q", "sset", "Master", "toggle", NULL };
+static const char *unmutevol[] = { "amixer", "-q", "sset", "Master", "unmute", NULL };
+/* brightness controls */
+static const char *inc_brightness[] = { "xbacklight", "-inc", "10", NULL };
+static const char *dec_brightness[] = { "xbacklight", "-dec", "10", NULL };
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
@@ -101,13 +104,14 @@ static const Key keys[] = {
 	{ MODKEY, 			XK_e, 	   spawn, 	   {.v = filemanager } },
 	{ MODKEY|ShiftMask, 		XK_g, 	   spawn, 	   {.v = my_github } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = discordcmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_F8,     spawn,          {.v = upvol   } },
 	{ MODKEY,                       XK_F7,     spawn,          {.v = downvol } },
 	{ MODKEY,                       XK_F5,     spawn,          {.v = mutevol } },
 	{ MODKEY,                       XK_F6,     spawn,          {.v = unmutevol } },
+	{ MODKEY,                       XK_F2,     spawn,          {.v = dec_brightness } },  // Decrease brightness
+        { MODKEY,                       XK_F3,     spawn,          {.v = inc_brightness } },  // Increase brightness
 	/* ------------------------------------------------------------------------- */
-	{0,                             XK_Print,  spawn,	   {.v = screenshot } },
+	{0,                             XK_Print,  spawn,	   	   {.v = screenshot } },
 	{ MODKEY,                       XK_p,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
