@@ -78,7 +78,6 @@ static const char *firefoxcmd[]  = { "firefox-esr", NULL };
 static const char *slockcmd[]    = { "slock", NULL };
 static const char *chatgptcmd[]  = { "thorium-browser", "--profile-directory=Profile 3",  "--app=https://chat.openai.com", NULL };
 static const char *whatsapp[]  = { "thorium-browser", "--profile-directory=Profile 3", "--app=https://web.whatsapp.com", NULL };
-static const char *bankmuscat[]  = { "chromium", "--profile-directory=Profile 15", "--app=https://corp.bankmuscatonline.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&__START_TRAN_FLAG__=Y&FG_BUTTONS__=LOAD&ACTION.LOAD=Y&AuthenticationFG.LOGIN_FLAG=7&BANK_ID=BM", NULL };
 static const char *filemanager[]  = { "pcmanfm", NULL };
 static const char *my_github[]  = { "brave-browser-nightly", "--app=https://github.com/", NULL };
 static const char *discordcmd[]  = { "brave-browser-nightly", "--app=https://discord.com/channels/@me", NULL };
@@ -100,7 +99,6 @@ static const Key keys[] = {
 	{ MODKEY, 			XK_l,      spawn, 	   {.v = slockcmd } },
 	{ MODKEY, 			XK_g, 	   spawn, 	   {.v = chatgptcmd } },
 	{ MODKEY, 			XK_w, 	   spawn, 	   {.v = whatsapp } },
-	{ MODKEY, 			XK_b, 	   spawn, 	   {.v = bankmuscat } },
 	{ MODKEY, 			XK_e, 	   spawn, 	   {.v = filemanager } },
 	{ MODKEY|ShiftMask, 		XK_g, 	   spawn, 	   {.v = my_github } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = discordcmd } },
