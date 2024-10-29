@@ -23,8 +23,4 @@ $raminfo
 echo "
 	+++  $date +++
 	"
-
-
-
-
-
+figlet System Info
