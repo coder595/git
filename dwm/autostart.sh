@@ -2,4 +2,3 @@
 nitrogen --restore &
 picom &
 slstatus &
-discord &

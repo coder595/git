@@ -1,7 +1,7 @@
 patches added:
-active indicator
-full gaps
-restartsig (Super+Shift+r)
-winicon
-systray
-autostart (~/.dwm/autostart.sh file should be added for this work)
+ active indicator
+ full gaps
+ restartsig (Super+Shift+r)
+ winicon
+ systray
+ autostart (~/.dwm/autostart.sh file should be added for this work)
