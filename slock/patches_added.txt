@@ -1,0 +1,2 @@
+#Patches applied:
+	DWM_logo (dwmlogoandblurscreen)
