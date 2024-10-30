@@ -79,7 +79,6 @@ static const char *slockcmd[]    = { "slock", NULL };
 static const char *chatgptcmd[]  = { "chromium", "--profile-directory=Default",  "--app=https://chat.openai.com", NULL };
 static const char *githubcmd[]  = { "chromium", "--profile-directory=Default",  "--app=https://github.com/", NULL };
 static const char *whatsapp[]  	 = { "chromium", "--profile-directory=Profile 2", "--app=https://web.whatsapp.com", NULL };
-static const char *bankmuscat[]  = { "chromium", "--profile-directory=Profile 1", "--app=https://corp.bankmuscatonline.com/corp/AuthenticationController?FORMSGROUP_ID__=AuthenticationFG&__START_TRAN_FLAG__=Y&FG_BUTTONS__=LOAD&ACTION.LOAD=Y&AuthenticationFG.LOGIN_FLAG=7&BANK_ID=BM", NULL };
 static const char *filemanager[]  = { "pcmanfm", NULL };
 //static const char *officecmd[]  = { "flatpak", "run", "org.onlyoffice.desktopeditors", NULL };
 /* volume controls */
@@ -102,7 +101,6 @@ static const Key keys[] = {
 	{ MODKEY, 						XK_l,      spawn, 	   	   {.v = slockcmd } },
 	{ MODKEY, 						XK_g, 	   spawn, 	   	   {.v = chatgptcmd } },
 	{ MODKEY, 						XK_w, 	   spawn, 	   	   {.v = whatsapp } },
-	{ MODKEY, 						XK_b, 	   spawn, 	   	   {.v = bankmuscat } },
 	{ MODKEY, 						XK_e, 	   spawn, 	   	   {.v = filemanager } },
 	{ MODKEY|ShiftMask, 					XK_g, 	   spawn, 	   	   {.v = githubcmd } },
 //	{ MODKEY|ShiftMask,             XK_o,      spawn,          {.v = officecmd } },
