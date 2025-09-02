@@ -1,0 +1,69 @@
+Here are some color schemes codes for config.def.h:
+
+1) My Prvious Color Scheme:
+
+//DWM color scheme
+static const char dmenufont[]       = "FontAwesome:size=14";
+static const char normbgcolor[]           = "black";
+static const char normbordercolor[]       = "gray"; //border color
+static const char normfgcolor[]           = "aqua"; //DWM & Slstatus font color
+static const char selfgcolor[]            = "white"; //DWM bar font color
+static const char selbordercolor[]        = "#005577"; /* color dark cyan */
+static const char selbgcolor[]            = "#009933"; //DWM bar color
+static const char *colors[][3] = {
+       /*               fg           bg           border   */
+       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
+       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+};
+
+
+//Dmenu color scheme
+
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, "-hp", "pcmanfm,firefox-esr,chromium,codium,freetube,floorp,syncthingtray,discord,org.onlyoffice.desktopeditors,anydesk", NULL };
+
+################################################
+################################################
+################################################
+################################################
+
+2) Dark Gruvbox Color Scheme
+
+
+//DWM color scheme
+/* Gruvbox Dark Hard Theme */
+static const char normbgcolor[]     = "#282828";  /* background */
+static const char normfgcolor[]     = "#ebdbb2";  /* foreground */
+static const char normbordercolor[] = "#504945";  /* unfocused border */
+
+static const char selbgcolor[]      = "#458588";  /* focused window bg */
+static const char selfgcolor[]      = "#ebdbb2";  /* focused window fg */
+static const char selbordercolor[]  = "#fabd2f";  /* focused border */
+
+static const char *colors[][3]      = {
+	/*               fg            bg            border   */
+	[SchemeNorm] = { normfgcolor,  normbgcolor,  normbordercolor },
+	[SchemeSel]  = { selfgcolor,   selbgcolor,   selbordercolor  },
+};
+
+
+//Dmenu color scheme
+
+
+static const char *dmenucmd[] = {
+    "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
+    "-nb", normbgcolor,    /* normal background (#282828) */
+    "-nf", normfgcolor,    /* normal foreground (#ebdbb2) */
+    "-sb", selbgcolor,     /* selected background (#458588) */
+    "-sf", selfgcolor,     /* selected foreground (#ebdbb2) */
+    "-hp", "pcmanfm,firefox-esr,chromium,codium,freetube,floorp,syncthingtray,discord,org.onlyoffice.desktopeditors,anydesk", /* My Important apps*/
+    NULL
+};
+
+
+################################################
+################################################
+################################################
+################################################
+
+3) 
+
